@@ -80,13 +80,13 @@ class Conversation implements Chatbot {
 
     String returnString = "";
 
-    String[] sentence = inputString.split(" ");
+    String[] sentence = inputString.split("[!\\?\\.\\s]");
 
     for (int i = 0; i < sentence.length; i++) {
       if (i == 0 && sentence[i].equals("I")) {
         // Making sure that the "I" is the first word in the sentence to capitalize the "You" 
         returnString += "You ";
-      } if (sentence[i].equals("I")) {
+      } else if (sentence[i].equals("I")) {
         returnString += "you ";
       } else if (sentence[i].equals("me")) {
         returnString += "you ";
@@ -106,8 +106,10 @@ class Conversation implements Chatbot {
       }
     }
 
-    if (returnString.equals(inputString + " ")) {
+    if (returnString.equals(String.join(" ", sentence) + " ")) {
       returnString = responses[randomInt.nextInt(responses.length)];
+    } else {
+      returnString += "?";
     }
 
     return returnString;
